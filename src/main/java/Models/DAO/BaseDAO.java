@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public abstract class BaseDAO<T> {
     private ISqlMapper<T> _mapper;
 
-    public BaseDAO(ISqlMapper<T> mapper) {
+    protected BaseDAO(ISqlMapper<T> mapper) {
         _mapper = mapper;
     }
-    public Connection getConnection() {
+    protected Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection(DatabaseConfig.getConnectionString(), DatabaseConfig.username, DatabaseConfig.password);
@@ -23,7 +23,7 @@ public abstract class BaseDAO<T> {
     }
 
     // select to get multi record
-    public ArrayList<T> getRecordArray(String sql) {
+    protected ArrayList<T> getRecordArray(String sql) {
         ArrayList<T> data = new ArrayList<T>();
         Connection connection = getConnection();
         if (connection != null) {
@@ -45,7 +45,7 @@ public abstract class BaseDAO<T> {
         }
     }
 
-    public ArrayList<T> getRecordArray(String sql, Object ...params) {
+    protected ArrayList<T> getRecordArray(String sql, Object ...params) {
         ArrayList<T> data = new ArrayList<T>();
         Connection connection = getConnection();
         if (connection != null) {
@@ -68,7 +68,7 @@ public abstract class BaseDAO<T> {
     }
 
     // select to get one record
-    public T getRecordSingle(String sql) {
+    protected T getRecordSingle(String sql) {
         Connection connection = getConnection();
         if (connection != null) {
             try {
@@ -87,7 +87,7 @@ public abstract class BaseDAO<T> {
         }
     }
 
-    public T getRecordSingle(String sql, Object ...params) {
+    protected T getRecordSingle(String sql, Object ...params) {
         Connection connection = getConnection();
         if (connection != null) {
             try {
@@ -107,7 +107,7 @@ public abstract class BaseDAO<T> {
     }
 
     // insert/delete/update
-    public boolean executeQuery(String sql) {
+    protected boolean executeQuery(String sql) {
         Connection connection = getConnection();
         if (connection != null) {
             try {
@@ -124,7 +124,7 @@ public abstract class BaseDAO<T> {
         }
     }
 
-    public boolean executeQuery(String sql, Object ...params) {
+    protected boolean executeQuery(String sql, Object ...params) {
         Connection connection = getConnection();
         if (connection != null) {
             try {
