@@ -40,6 +40,12 @@ public class UserServlet extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     return;
                 }
+
+                if (!(limit>0 && limit<100)){
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    return;
+                }
+
             }
 
             // Возвращаем всех пользователей
