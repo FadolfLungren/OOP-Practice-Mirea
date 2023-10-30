@@ -1,7 +1,7 @@
 package Controllers;
 
-import Models.Entities.User;
-import Services.UserService;
+import Models.Entities.Product;
+import Services.ProductService;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.MalformedJsonException;
 import jakarta.servlet.ServletConfig;
@@ -15,14 +15,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class UserServlet extends HttpServlet {
+public class ProductServlet extends HttpServlet {
 
-    private UserService userService;
+    private ProductService productService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        userService = new UserService();
+        productService = new ProductService();
 
     }
 
@@ -53,15 +53,15 @@ public class UserServlet extends HttpServlet {
 
             }
 
-            // Возвращаем всех пользователей
-           out.println(userService.getList(limit));
+            // Возвращаем все товары
+            out.println(productService.getList(limit));
         } else {
-            // Получаем ID пользователя из URL и возвращаем информацию о нем
+            // Получаем ID товара из URL и возвращаем информацию о нем
             try {
-                int userId = Integer.parseInt(pathInfo.substring(1));
-                User user = userService.getById(Integer.toString(userId));
-                if (user != null) {
-                    out.println(user);
+                int productId = Integer.parseInt(pathInfo.substring(1));
+                Product product = productService.getById(Integer.toString(productId));
+                if (product != null) {
+                    out.println(product);
                 } else {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 }
@@ -83,16 +83,15 @@ public class UserServlet extends HttpServlet {
 
 
 
-        Gson gsonu = new Gson();
-        // Преобразуем JSON в объект User
+        Gson gsonp = new Gson();
+        // Преобразуем JSON в объект product
 
         try{
-            User newUser = gsonu.fromJson(sb.toString(), User.class);
-            userService.add(newUser);
+            Product newProduct = gsonp.fromJson(sb.toString(), Product.class);
+            productService.addProduct(newProduct);
             response.setStatus(HttpServletResponse.SC_CREATED);
         }catch (JsonSyntaxException e){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
         }
     }
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -100,8 +99,8 @@ public class UserServlet extends HttpServlet {
 
         if (pathInfo != null && !pathInfo.equals("/")) {
             try {
-                int userId = Integer.parseInt(pathInfo.substring(1));
-                boolean removedUser = userService.remove(Integer.toString(userId));
+                int productId = Integer.parseInt(pathInfo.substring(1));
+                boolean removedUser = productService.remove(Integer.toString(productId));
 
                 if (removedUser) {
                     response.setStatus(HttpServletResponse.SC_OK);
@@ -120,8 +119,8 @@ public class UserServlet extends HttpServlet {
 
         if (pathInfo != null && !pathInfo.equals("/")) {
             try {
-                int userId = Integer.parseInt(pathInfo.substring(1));
-                User existingUser = userService.getById(Integer.toString(userId));
+                int productId = Integer.parseInt(pathInfo.substring(1));
+                Product existingUser = productService.getById(Integer.toString(productId));
 
                 if (existingUser != null) {
                     StringBuilder sb = new StringBuilder();
@@ -133,10 +132,10 @@ public class UserServlet extends HttpServlet {
                     }
 
                     Gson gson = new Gson();
-                    // Преобразуем JSON в объект User и обновляем существующего пользователя
+                    // Преобразуем JSON в объект Product и обновляем существующий товар
                     try{
-                        User newUser = gson.fromJson(sb.toString(), User.class);
-                        boolean isUpdated = userService.update(newUser);
+                        Product newProduct = gson.fromJson(sb.toString(), Product.class);
+                        boolean isUpdated = productService.update(newProduct);
                         if (isUpdated){
                             response.setStatus(HttpServletResponse.SC_CREATED);
                         }else{

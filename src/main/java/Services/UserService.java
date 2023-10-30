@@ -6,7 +6,7 @@ import Models.Entities.User;
 import java.util.ArrayList;
 
 public class UserService {
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
 
     public UserService(){
         userDAO = new UserDAO();
@@ -20,7 +20,7 @@ public class UserService {
         return userDAO.getList(limit);
     }
 
-    public boolean addUser(User user){
+    public boolean add(User user){
         return userDAO.add(user);
     }
 
