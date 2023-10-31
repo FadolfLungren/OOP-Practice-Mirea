@@ -92,7 +92,6 @@ public class UserServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_CREATED);
         }catch (JsonSyntaxException e){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
         }
     }
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -145,7 +144,6 @@ public class UserServlet extends HttpServlet {
 
                     }catch (JsonSyntaxException e){
                         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                        return;
                     }
                 } else {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
