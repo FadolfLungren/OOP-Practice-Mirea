@@ -90,6 +90,7 @@ public class ProductServlet extends HttpServlet {
             Product newProduct = gsonp.fromJson(sb.toString(), Product.class);
             productService.addProduct(newProduct);
             response.setStatus(HttpServletResponse.SC_CREATED);
+            System.out.println("Received JSON: " + sb.toString());
         }catch (JsonSyntaxException e){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }

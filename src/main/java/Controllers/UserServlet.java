@@ -52,7 +52,7 @@ public class UserServlet extends HttpServlet {
                 }
 
             }
-
+            // Сделать обработку ошибок бд
             // Возвращаем всех пользователей
            out.println(userService.getList(limit));
         } else {

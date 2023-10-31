@@ -5,6 +5,7 @@ public class User {
     private String userName;
     private String login;
     private String password;
+    private int accessLvl;
 
 
     public int getId() {
@@ -39,11 +40,14 @@ public class User {
         this.password = password;
     }
 
+    public int getAccessLvl(){return accessLvl;}
 
+    public void setAccessLvl(int accessLvl){this.accessLvl = accessLvl;}
     @Override
     public String toString() {
         return "{" +
                 "\"id\":" + "\"" + id + "\"" +","+
+                "\"accessLvl\":" + "\"" + accessLvl + "\"" +","+
                 "\"userName\":" + "\"" + userName +"\"" +","+
                 "\"login\":" + "\"" + login + "\"" +","+
                 "\"password\":" + "\"" + password  + "\"" +

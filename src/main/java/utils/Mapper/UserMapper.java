@@ -16,6 +16,7 @@ public class UserMapper implements ISqlMapper<User>{
             if (row == null || row.getRow() == 0)
                 return null;
             User.setId(row.getInt("id"));
+            User.setAccessLvl(row.getInt("accessLvl"));
             User.setUserName(row.getString("username"));
             User.setLogin(row.getString("login"));
             User.setPassword(row.getString("password"));

@@ -37,6 +37,6 @@ public class ProductDAO extends BaseDAO<Product>{
 				UPDATE PRODUCT SET ID = ?, TITLE = ?, COST = ?, DESCRIPTION = ?, CATEGORY = ?, IMGURL = ?
 				WHERE ID = ?
 		""";
-        return this.executeQuery(query, new Object[]{product.getId(), product.getTitle(),  product.getCost(), product.getDescription(), product.getCategory(), product.getUrl() });
+        return this.executeQuery(query, new Object[]{product.getId(), product.getTitle(),  product.getCost(), product.getDescription(), product.getCategory(), product.getUrl(), product.getId() });
     }
 }

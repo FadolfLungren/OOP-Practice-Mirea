@@ -13,7 +13,7 @@ public abstract class BaseDAO<T> {
     }
     protected Connection getConnection() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection(DatabaseConfig.getConnectionString(), DatabaseConfig.username, DatabaseConfig.password);
             return connection;
         }catch (Exception e) {

@@ -2,11 +2,11 @@ package Models.Entities;
 
 public class Product {
     private int id;
-    private String productTitle;
-    private String productCost;
-    private String productDescription;
-    private String productCategory;
-    private String productImgUrl;
+    private String title;
+    private String cost;
+    private String description;
+    private String category;
+    private String imgUrl;
 
 
     public int getId() {
@@ -18,52 +18,52 @@ public class Product {
     }
 
     public String getTitle() {
-        return productTitle;
+        return title;
     }
 
-    public void setTitle(String productName) {
-        this.productTitle = productName;
+    public void setTitle(String Name) {
+        this.title = Name;
     }
 
     public String getCost() {
-        return productCost;
+        return cost;
     }
 
-    public void setCost(String productCost) {
-        this.productCost = productCost;
+    public void setCost(String Cost) {
+        this.cost = Cost;
     }
 
     public String getDescription() {
-        return productDescription;
+        return description;
     }
 
-    public void setDescription(String productDescription) {
-        this.productDescription = productDescription;
+    public void setDescription(String Description) {
+        this.description = Description;
     }
 
     public String getCategory (){
-        return productCategory;
+        return category;
     }
-    public void setCategory(String productCategory){
-        this.productCategory = productCategory;
+    public void setCategory(String Category){
+        this.category = Category;
     }
     public String getUrl (){
-        return productImgUrl;
+        return imgUrl;
     }
 
-    public void setProductImgUrl(String productImgUrl) {
-        this.productImgUrl = productImgUrl;
+    public void setProductImgUrl(String ImgUrl) {
+        this.imgUrl = ImgUrl;
     }
 
     @Override
     public String toString() {
         return "{" +
                 "\"id\":" + "\"" + id + "\"" +","+
-                "\"title\":" + "\"" + productTitle +"\"" +","+
-                "\"cost\":" + "\"" + productCost + "\"" +","+
-                "\"description\":" + "\"" + productDescription  + "\"" + "," +
-                "\"category\":" + "\"" + productCategory  + "\"" + "," +
-                "\"Img\":" + "\"" + productImgUrl  + "\"" +
+                "\"title\":" + "\"" + title +"\"" +","+
+                "\"cost\":" + "\"" + cost + "\"" +","+
+                "\"description\":" + "\"" + description  + "\"" + "," +
+                "\"category\":" + "\"" + category  + "\"" + "," +
+                "\"Img\":" + "\"" + imgUrl  + "\"" +
                 "}";
     }
 }
