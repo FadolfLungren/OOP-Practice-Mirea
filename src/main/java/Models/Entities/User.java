@@ -53,4 +53,8 @@ public class User {
                 "\"password\":" + "\"" + password  + "\"" +
                 "}";
     }
+
+    public enum ROLE{
+        USER, ADMIN, UNKNOWN
+    }
 }

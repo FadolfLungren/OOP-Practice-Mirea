@@ -4,6 +4,7 @@ import Models.Entities.User;
 import Services.UserService;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.MalformedJsonException;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -27,13 +28,15 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        String pathInfo = request.getPathInfo();
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException, ServletException {
+        // we do not set content type, headers, cookies etc.
+        // resp.setContentType("text/html"); // while redirecting as
+        // it would most likely result in an IllegalStateException
 
-        if (pathInfo == null || pathInfo.equals("/")) {
-            String limitParam = request.getParameter("limit");
+        // "/" is relative to the context root (your web-app name)
+        req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+        // don't add your web-app name to the path
 
             int limit = 10;
             if (limitParam != null && !limitParam.isEmpty()) {
@@ -69,6 +72,7 @@ public class UserServlet extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
         }
+
     }
 
     @Override
