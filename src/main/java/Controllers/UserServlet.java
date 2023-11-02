@@ -28,15 +28,14 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws IOException, ServletException {
-        // we do not set content type, headers, cookies etc.
-        // resp.setContentType("text/html"); // while redirecting as
-        // it would most likely result in an IllegalStateException
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        String pathInfo = request.getPathInfo();
 
-        // "/" is relative to the context root (your web-app name)
-        req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
-        // don't add your web-app name to the path
+
+        if (pathInfo == null || pathInfo.equals("/")) {
+            String limitParam = request.getParameter("limit");
 
             int limit = 10;
             if (limitParam != null && !limitParam.isEmpty()) {

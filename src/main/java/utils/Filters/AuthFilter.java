@@ -24,7 +24,7 @@ public class AuthFilter implements Filter {
         AuthContext context = new AuthContext(req);
 
         if (!context.isAuthenticated())
-            ((HttpServletResponse)response).sendRedirect("untitled1hgghgh_war_exploded/users/666");
+            ((HttpServletResponse)response).sendRedirect("/users/666");
         else
         if (((HttpServletRequest)request).getServletPath().startsWith("/admin")){
             if (!context.isInRole(User.ROLE.ADMIN)) {
@@ -33,7 +33,7 @@ public class AuthFilter implements Filter {
                 chain.doFilter(request, response);
             }
         }else {
-            ((HttpServletResponse)response).sendRedirect("untitled1hgghgh_war_exploded/users/111");
+            ((HttpServletResponse)response).sendRedirect("/users/111");
             //chain.doFilter(request, response);
         }
     }
