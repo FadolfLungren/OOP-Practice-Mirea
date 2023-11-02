@@ -135,7 +135,7 @@ public class ProductServlet extends HttpServlet {
                         }
                     }
 
-                    Gson gson = new Gson();
+                    Gson gson = new Gson();//в конструктор
                     // Преобразуем JSON в объект Product и обновляем существующий товар
                     try{
                         Product newProduct = gson.fromJson(sb.toString(), Product.class);
