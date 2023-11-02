@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.Entities.User;
 import Services.UserService;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -22,48 +23,16 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        String pathInfo = request.getPathInfo();
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException, ServletException {
+        // we do not set content type, headers, cookies etc.
+        // resp.setContentType("text/html"); // while redirecting as
+        // it would most likely result in an IllegalStateException
 
-        if (pathInfo == null || pathInfo.equals("/")) {
-            String limitParam = request.getParameter("limit");
+        // "/" is relative to the context root (your web-app name)
+        req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+        // don't add your web-app name to the path
 
-            int limit = 10;
-            if (limitParam != null && !limitParam.isEmpty()) {
-                try {
-                    limit = Integer.parseInt(limitParam);
-
-                } catch (NumberFormatException e) {
-                    // Обработка ошибки в случае, если "limitParam" не является целым числом
-                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    return;
-                }
-
-                if (!(limit>0 && limit<100)){
-                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    return;
-                }
-
-            }
-
-            // Возвращаем всех пользователей
-           out.println(userService.getList(limit));
-        } else {
-            // Получаем ID пользователя из URL и возвращаем информацию о нем
-            try {
-                int userId = Integer.parseInt(pathInfo.substring(1));
-                User user = userService.getById(Integer.toString(userId));
-                if (user != null) {
-                    out.println(user);
-                } else {
-                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                }
-            } catch (NumberFormatException e) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            }
-        }
     }
 
 }
