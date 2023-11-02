@@ -20,6 +20,23 @@ public class UserDAO extends BaseDAO<User>{
         String query = "SELECT * FROM USER LIMIT ?";
         return this.getRecordArray(query, new Object[] {limit});
     }
-
-
+    
+    public boolean add(User user) {
+        String query = """
+				INSERT INTO user(id, accessLvl, username, password, login)
+				VALUES(?, ?, ?, ?, ?);
+		""";
+        return this.executeQuery(query, new Object[] { user.getId(), user.getAccessLvl(), user.getUserName(),  user.getPassword(), user.getLogin() });
+    }
+    public boolean deleteUser(String id) {
+        String query = "DELETE FROM User WHERE ID = ?";
+        return this.executeQuery(query, new Object[] {id});
+    }
+    public boolean updateUser(User user) {
+        String query = """	
+				UPDATE USER SET ID = ?, LOGIN = ?, PASSWORD = ?, USERNAME = ?
+				WHERE ID = ?
+		""";
+        return this.executeQuery(query, new Object[]{user.getId(), user.getLogin(), user.getPassword(), user.getUserName(), user.getId()});
+    }
 }
