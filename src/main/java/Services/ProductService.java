@@ -16,8 +16,8 @@ public class ProductService {
         return productDAO.getById(id);
     }
 
-    public ArrayList<Product> getList(int limit){
-        return productDAO.getList(limit);
+    public ArrayList<Product> getList(int limit, String sortBy){
+        return productDAO.getList(limit, sortBy);
     }
 
     public boolean addProduct(Product product){

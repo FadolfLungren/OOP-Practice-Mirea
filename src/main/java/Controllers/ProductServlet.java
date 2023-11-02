@@ -34,6 +34,9 @@ public class ProductServlet extends HttpServlet {
 
         if (pathInfo == null || pathInfo.equals("/")) {
             String limitParam = request.getParameter("limit");
+            String pageParam = request.getParameter("page");
+            String perPageParam = request.getParameter("perPage");
+            String sortBy = request.getParameter("sortBy");
 
             int limit = 10;
             if (limitParam != null && !limitParam.isEmpty()) {
@@ -54,7 +57,7 @@ public class ProductServlet extends HttpServlet {
             }
 
             // Возвращаем все товары
-            out.println(productService.getList(limit));
+            out.println(productService.getList(limit,sortBy));
         } else {
             // Получаем ID товара из URL и возвращаем информацию о нем
             try {

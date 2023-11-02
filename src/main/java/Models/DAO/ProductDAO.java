@@ -16,8 +16,12 @@ public class ProductDAO extends BaseDAO<Product>{
         return this.getRecordSingle(query, new Object[] {id});
     }
 
-    public ArrayList<Product> getList(int limit) {
-        String query = "SELECT * FROM PRODUCT LIMIT ?";
+    public ArrayList<Product> getList(int limit, String sortBy) {
+        String query = "SELECT * FROM PRODUCT";
+        if (sortBy != null && !sortBy.isEmpty()) {
+            query += " ORDER BY COST " + sortBy;
+        }
+        query += " LIMIT ?";
         return this.getRecordArray(query, new Object[] {limit});
     }
 
