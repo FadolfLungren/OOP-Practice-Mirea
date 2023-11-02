@@ -22,7 +22,7 @@ public class UserMapper implements ISqlMapper<User>{
             User.setPassword(row.getString("password"));
         } catch (SQLException e) {
             Logger logger = Logger.getAnonymousLogger();
-            logger.log(Level.SEVERE, "an exception was thrown", e);
+            logger.log(Level.SEVERE, "An exception was thrown", e);
         }
         return User;
     }
