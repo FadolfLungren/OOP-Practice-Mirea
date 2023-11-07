@@ -1,5 +1,8 @@
 target/
-src/main/client
+
+src/main/client/node_modules
+src/main/client/.idea
+src/main/client/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
