@@ -16,6 +16,10 @@ public class UserService {
         return userDAO.getById(id);
     }
 
+    public User getByLogin(String login) {
+        return userDAO.getByLogin(login);
+    }
+
     public ArrayList<User> getList(int limit){
         return userDAO.getList(limit);
     }

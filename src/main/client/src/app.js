@@ -4,11 +4,12 @@ import ProductsPage from "./components/ProductsPage";
 import Login from "./components/Login"
 import ProfilePage from "./components/ProfilePage";
 import {HashRouter, Route, Routes} from "react-router-dom";
-
+import SignUp from "./components/SignUp";
 import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
+
 
 
 const router = createBrowserRouter([
@@ -37,10 +38,11 @@ const App = () => {
         <React.StrictMode>
             <HashRouter>
                 <Routes>
-                    <Route path="/login" element={<Login/>}/> {/* 👈 Renders at /#/app/ */}
-                    <Route path="/profile" element={<ProfilePage/>}/> {/* 👈 Renders at /#/app/ */}
-                    <Route path="/products" element={<ProductsPage/>}/> {/* 👈 Renders at /#/app/ */}
-                    <Route path="/" element={<div>HLO</div>}/> {/* 👈 Renders at /#/app/ */}
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/profile" element={<ProfilePage/>}/>
+                    <Route path="/products" element={<ProductsPage/>}/>
+                    <Route path="/" element={<div>HLO</div>}/>
+                    <Route path="/signup" element={<SignUp/>}/>
                 </Routes>
             </HashRouter>
         </React.StrictMode>

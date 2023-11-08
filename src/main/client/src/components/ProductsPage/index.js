@@ -21,13 +21,41 @@ import CardActions from "@mui/material/CardActions";
 import {createTheme} from "@mui/material/styles";
 import {Pagination, Stack, ThemeProvider} from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ,12, 7, 8, 9, 10, 11 ,12];
 
 const defaultTheme = createTheme();
 
-function ResponsiveAppBar() {
+function ProductsPage() {
+
+
+    const [products, setProducts] = useState([])
+    const [isAuth, setIsAuth] = useState(false)
+    const [user, setUser] = useState(null)
+
+
+    useEffect(()=>{
+
+        axios.get('http://localhost:8080/products',{
+            validateStatus: function (status) {
+                return status < 500;
+            },
+            withCredentials: true
+        }).then((response)=>{
+            if (response.status === 200){
+                console.log(response.data)
+                setProducts(response.data)
+            }
+
+        })
+
+
+    }, [])
+
+
     return (
         <ThemeProvider theme={defaultTheme}>
             <CssBaseline />
@@ -40,8 +68,8 @@ function ResponsiveAppBar() {
                     }}
                 />
                 <Grid container spacing={4}>
-                    {cards.map((card) => (
-                        <Grid item key={card} xs={12} sm={6} md={2}>
+                    {products.map((product) => (
+                        <Grid item key={product} xs={12} sm={6} md={2}>
                             <Card
                                 sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                             >
@@ -55,11 +83,10 @@ function ResponsiveAppBar() {
                                 />
                                 <CardContent sx={{ flexGrow: 1 }}>
                                     <Typography gutterBottom variant="h5" component="h2">
-                                        Heading
+                                        {product['title']}
                                     </Typography>
                                     <Typography>
-                                        This is a media card. You can use this section to describe the
-                                        content.
+                                        {product['description']}
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
@@ -95,4 +122,4 @@ function ResponsiveAppBar() {
         </ThemeProvider>
     );
 }
-export default ResponsiveAppBar;
+export default ProductsPage;

@@ -1,4 +1,4 @@
-package Controllers;
+package Controllers.User;
 
 import Models.Entities.User;
 import Services.UserService;
@@ -24,7 +24,6 @@ public class UserServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         userService = new UserService();
-
     }
 
     @Override
@@ -91,8 +90,14 @@ public class UserServlet extends HttpServlet {
 
         try{
             User newUser = gsonu.fromJson(sb.toString(), User.class);
-            userService.add(newUser);
-            response.setStatus(HttpServletResponse.SC_CREATED);
+
+            boolean isCreated = userService.add(newUser);
+            if(isCreated){
+                response.setStatus(HttpServletResponse.SC_CREATED);
+            } else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+
         }catch (JsonSyntaxException e){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
@@ -141,11 +146,11 @@ public class UserServlet extends HttpServlet {
                         boolean isUpdated = userService.update(newUser);
                         if (isUpdated){
                             response.setStatus(HttpServletResponse.SC_CREATED);
-                        }else{
+                        } else {
                             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                         }
 
-                    }catch (JsonSyntaxException e){
+                    } catch (JsonSyntaxException e) {
                         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     }
                 } else {

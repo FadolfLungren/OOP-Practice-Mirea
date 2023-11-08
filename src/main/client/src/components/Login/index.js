@@ -13,7 +13,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Carousel from 'react-material-ui-carousel'
-
+import axios from "axios";
+import {redirect} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const SKOOFS = [
     "https://sun1-83.userapi.com/impg/LjJL75jptnt6PAU0mMBe-xYLkjkInXq5b3f8-w/ni2kr30ZIM0.jpg?size=707x800&quality=95&sign=d4f3955c64c6f738471d6aac517bccd5&c_uniq_tag=rIoSQYnfWYlmcRyZ-0UYSYibL_Xou2Jqw9nZNGyeHh4&type=album",
@@ -38,13 +40,32 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
-    const handleSubmit = (event) => {
+    const navigate =useNavigate()
+
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         console.log({
             email: data.get('email'),
             password: data.get('password'),
         });
+
+        axios.post('http://localhost:8080/users/login', {
+                login: data.get('email'),
+                password: data.get('password'),
+            },{
+            validateStatus: function (status) {
+                return status < 500;
+            },
+            withCredentials: true
+        }).then((response)=>{
+            if (response.status === 200){
+                navigate("/products")
+            }
+
+        })
+
     };
 
     return (
@@ -93,7 +114,7 @@ export default function SignInSide() {
                                 required
                                 fullWidth
                                 id="email"
-                                label="Email Address"
+                                label="Username"
                                 name="email"
                                 autoComplete="email"
                                 autoFocus
@@ -108,10 +129,6 @@ export default function SignInSide() {
                                 id="password"
                                 autoComplete="current-password"
                             />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                            />
                             <Button
                                 type="submit"
                                 fullWidth
@@ -121,18 +138,12 @@ export default function SignInSide() {
                                 Sign In
                             </Button>
                             <Grid container>
-                                <Grid item xs>
-                                    <Link href="#" variant="body2">
-                                        Forgot password?
-                                    </Link>
-                                </Grid>
                                 <Grid item>
-                                    <Link href="#" variant="body2">
-                                        {"Don't have an account? Sign Up"}
+                                    <Link href="/#/signup" variant="body2">
+                                        {"Регистрация"}
                                     </Link>
                                 </Grid>
                             </Grid>
-                            <Copyright sx={{ mt: 5 }} />
                         </Box>
                     </Box>
                 </Grid>

@@ -16,6 +16,11 @@ public class UserDAO extends BaseDAO<User>{
         return this.getRecordSingle(query, new Object[] {id});
     }
 
+    public User getByLogin(String login) {
+        String query = "SELECT * FROM USER WHERE LOGIN = ?";
+        return this.getRecordSingle(query, new Object[] {login});
+    }
+
     public ArrayList<User> getList(int limit) {
         String query = "SELECT * FROM USER LIMIT ?";
         return this.getRecordArray(query, new Object[] {limit});
@@ -23,10 +28,10 @@ public class UserDAO extends BaseDAO<User>{
     
     public boolean add(User user) {
         String query = """
-				INSERT INTO user(id, accessLvl, username, password, login)
+				INSERT INTO user(id, role, username, password, login)
 				VALUES(?, ?, ?, ?, ?);
 		""";
-        return this.executeQuery(query, new Object[] { user.getId(), user.getAccessLvl(), user.getUserName(),  user.getPassword(), user.getLogin() });
+        return this.executeQuery(query, new Object[] { user.getId(), "USER", user.getUserName(),  user.getPassword(), user.getLogin() });
     }
     public boolean deleteUser(String id) {
         String query = "DELETE FROM User WHERE ID = ?";

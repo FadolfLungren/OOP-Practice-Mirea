@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Toolbar from "@mui/material/Toolbar";
 import AdbIcon from "@mui/icons-material/Adb";
 import Typography from "@mui/material/Typography";
@@ -12,9 +12,19 @@ import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import AppBar from "@mui/material/AppBar";
 import Container from "@mui/material/Container";
+import axios from "axios";
 
-const pages = ['продукты', 'че палишь ебло?'];
-const settings = ['Profile', 'Account', 'Logout'];
+const pages = [
+    {
+        text: 'продукты',
+        href: "/#/products"
+    },
+    {
+        text: 'че палишь ебло?',
+        href: "/#/profile"
+    }
+    ];
+const settings = ['Profile', 'Logout'];
 
 const ProductsToolbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -34,6 +44,30 @@ const ProductsToolbar = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const [isAuth, setIsAuth] = useState(false)
+
+    useEffect(()=>{
+        axios.get('http://localhost:8080/users/validateSession',{
+            validateStatus: function (status) {
+                return status < 500;
+            },
+            withCredentials: true
+        }).then((response)=>{
+            if (response.status === 200){
+                setIsAuth(true)
+            }
+            if (response.status === 400){
+                setIsAuth(false)
+            }
+        })
+    }, [])
+
+
+
+
+
+
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -43,7 +77,7 @@ const ProductsToolbar = () => {
                     variant="h6"
                     noWrap
                     component="a"
-                    href="#app-bar-with-responsive-menu"
+                    href="#app-bar-with-respo32ive-menu"
                     sx={{
                         mr: 2,
                         display: { xs: 'none', md: 'flex' },
@@ -87,8 +121,8 @@ const ProductsToolbar = () => {
                         }}
                     >
                         {pages.map((page) => (
-                            <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">{page}</Typography>
+                            <MenuItem key={page.text} onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center" component="a">{page.text}</Typography>
                             </MenuItem>
                         ))}
                     </Menu>
@@ -115,11 +149,12 @@ const ProductsToolbar = () => {
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                     {pages.map((page) => (
                         <Button
-                            key={page}
+                            key={page.text}
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
+                            href={page.href}
                         >
-                            {page}
+                            {page.text}
                         </Button>
                     ))}
                 </Box>
@@ -146,11 +181,28 @@ const ProductsToolbar = () => {
                         open={Boolean(anchorElUser)}
                         onClose={handleCloseUserMenu}
                     >
-                        {settings.map((setting) => (
-                            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center">{setting}</Typography>
-                            </MenuItem>
-                        ))}
+                        {isAuth && <MenuItem key={1} onClick={handleCloseUserMenu}>
+                            <Typography textAlign="center"component="a" href="/#/profile" sx={{
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}>Профиль</Typography>
+                        </MenuItem>}
+
+
+                        {isAuth && <MenuItem key={2} onClick={handleCloseUserMenu}>
+                            <Typography textAlign="center"component="a" href="/#/login" sx={{
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}>Выйти</Typography>
+                        </MenuItem>}
+
+                        {!isAuth && <MenuItem key={3} onClick={handleCloseUserMenu}>
+                            <Typography textAlign="center" component="a" href="/#/login" sx={{
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}>Войти</Typography>
+                        </MenuItem>}
+
                     </Menu>
                 </Box>
             </Toolbar>
