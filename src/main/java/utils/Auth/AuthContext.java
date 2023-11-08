@@ -15,6 +15,7 @@ public class AuthContext implements IAuthContext {
         User.ROLE role = (User.ROLE)session.getAttribute("ROLE");
         if (role != null) {
             return true;
+
         }
         return false;
     }

@@ -5,7 +5,23 @@ public class User {
     private String userName;
     private String login;
     private String password;
-    private int accessLvl;
+    private ROLE role;
+
+    public ROLE getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        if(role.equals("UNKNOWN")){
+            this.role = ROLE.UNKNOWN;
+        }
+        if(role.equals("ADMIN")){
+            this.role = ROLE.ADMIN;
+        }
+        if(role.equals("USER")){
+            this.role = ROLE.USER;
+        }
+    }
 
 
     public int getId() {
@@ -40,14 +56,11 @@ public class User {
         this.password = password;
     }
 
-    public int getAccessLvl(){return accessLvl;}
-
-    public void setAccessLvl(int accessLvl){this.accessLvl = accessLvl;}
     @Override
     public String toString() {
         return "{" +
                 "\"id\":" + "\"" + id + "\"" +","+
-                "\"accessLvl\":" + "\"" + accessLvl + "\"" +","+
+                "\"role\":" + "\"" + role + "\"" +","+
                 "\"userName\":" + "\"" + userName +"\"" +","+
                 "\"login\":" + "\"" + login + "\"" +","+
                 "\"password\":" + "\"" + password  + "\"" +
@@ -55,6 +68,18 @@ public class User {
     }
 
     public enum ROLE{
-        USER, ADMIN, UNKNOWN
+        USER("user"),
+        ADMIN("admin"),
+        UNKNOWN("unknown");
+
+        private final String accesLvl;
+
+        ROLE(String accesLvl) {
+            this.accesLvl = accesLvl;
+        }
+
+        public String getAccesLvl() {
+            return accesLvl;
+        }
     }
 }
