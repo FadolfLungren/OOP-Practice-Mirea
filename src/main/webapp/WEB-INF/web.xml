@@ -4,15 +4,6 @@
   <display-name>Archetype Created Web Application</display-name>
 
   <filter>
-    <filter-name>AuthFilter</filter-name>
-    <filter-class>utils.Filters.AuthFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>AuthFilter</filter-name>
-    <url-pattern>/auth</url-pattern>
-  </filter-mapping>
-
-  <filter>
     <filter-name>CorsFilter</filter-name>
     <filter-class>utils.Filters.CorsFilter</filter-class>
   </filter>
@@ -31,12 +22,30 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>BucketServlet</servlet-name>
+    <servlet-class>Controllers.BucketServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BucketServlet</servlet-name>
+    <url-pattern>/bucket/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>UserLoginServlet</servlet-name>
     <servlet-class>Controllers.User.UserLoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>UserLoginServlet</servlet-name>
     <url-pattern>/users/login</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>Controllers.User.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/users/logout</url-pattern>
   </servlet-mapping>
 
   <servlet>

@@ -21,6 +21,7 @@ public class UserMapper implements ISqlMapper<User>{
             user.setUserName(row.getString("username"));
             user.setLogin(row.getString("login"));
             user.setPassword(row.getString("password"));
+            user.setImg(row.getString("img"));
         } catch (SQLException e) {
             Logger logger = Logger.getAnonymousLogger();
             logger.log(Level.SEVERE, "an exception was thrown", e);

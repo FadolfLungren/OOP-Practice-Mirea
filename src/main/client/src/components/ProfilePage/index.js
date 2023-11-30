@@ -34,7 +34,21 @@ const ProfilePage = () => {
         })
     }, [])
 
+    function logout(){
+        axios.get('http://localhost:8080/users/logout',{
+            validateStatus: function (status) {
 
+                return status < 500;
+            },
+            withCredentials: true
+        }).then((response)=>{
+            if (response.status === 200){
+                nav("/")
+            }
+        }).catch((e)=>{
+            console.log(e)
+        })
+    }
 
 
 
@@ -71,8 +85,7 @@ const ProfilePage = () => {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button size="small">Убить себя нахуй</Button>
-                                    <Button size="small">Выйти из аккаунта</Button>
+                                    <Button size="small" onClick={()=>logout()}>Выйти из аккаунта</Button>
                                 </CardActions>
 
                             </Card>
@@ -104,7 +117,6 @@ const ProfilePage = () => {
                                             </CardContent>
                                             <CardActions>
                                                 <Button size="small">Убрать</Button>
-                                                <Button size="small">ИЩО</Button>
                                             </CardActions>
 
                                         </Card>
