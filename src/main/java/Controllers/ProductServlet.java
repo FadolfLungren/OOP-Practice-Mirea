@@ -14,16 +14,21 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class ProductServlet extends HttpServlet {
 
     private ProductService productService;
+    private String dateNow;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         productService = new ProductService();
-
+        Date date = new Date();
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("dd-MM-yyyy");
+        dateNow = formatForDateNow.format(date);
     }
 
     @Override
@@ -91,6 +96,7 @@ public class ProductServlet extends HttpServlet {
 
         try{
             Product newProduct = gsonp.fromJson(sb.toString(), Product.class);
+            newProduct.setDate(dateNow);
             productService.addProduct(newProduct);
             response.setStatus(HttpServletResponse.SC_CREATED);
             System.out.println("Received JSON: " + sb.toString());
