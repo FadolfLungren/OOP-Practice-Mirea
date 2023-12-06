@@ -6,6 +6,16 @@ public class User {
     private String login;
     private String password;
     private ROLE role;
+    private String img;
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+
 
     public ROLE getRole() {
         return role;
@@ -60,6 +70,7 @@ public class User {
     public String toString() {
         return "{" +
                 "\"id\":" + "\"" + id + "\"" +","+
+                "\"img\":" + "\"" + img + "\"" +","+
                 "\"role\":" + "\"" + role + "\"" +","+
                 "\"userName\":" + "\"" + userName +"\"" +","+
                 "\"login\":" + "\"" + login + "\"" +","+

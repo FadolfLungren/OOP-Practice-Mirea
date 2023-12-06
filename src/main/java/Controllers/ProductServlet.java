@@ -154,7 +154,6 @@ public class ProductServlet extends HttpServlet {
 
                     }catch (JsonSyntaxException e){
                         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                        return;
                     }
                 } else {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);

@@ -17,10 +17,10 @@ import axios from "axios";
 const pages = [
     {
         text: 'продукты',
-        href: "/#/products"
+        href: "/"
     },
     {
-        text: 'че палишь ебло?',
+        text: 'профиль?',
         href: "/#/profile"
     }
     ];
@@ -77,7 +77,7 @@ const ProductsToolbar = () => {
                     variant="h6"
                     noWrap
                     component="a"
-                    href="#app-bar-with-respo32ive-menu"
+                    href=""
                     sx={{
                         mr: 2,
                         display: { xs: 'none', md: 'flex' },
@@ -88,7 +88,7 @@ const ProductsToolbar = () => {
                         textDecoration: 'none',
                     }}
                 >
-                    Ломбард
+                    Маркетплейс
                 </Typography>
 
                 <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

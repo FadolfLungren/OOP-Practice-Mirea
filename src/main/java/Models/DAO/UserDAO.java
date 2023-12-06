@@ -28,10 +28,10 @@ public class UserDAO extends BaseDAO<User>{
     
     public boolean add(User user) {
         String query = """
-				INSERT INTO user(id, role, username, password, login)
-				VALUES(?, ?, ?, ?, ?);
+				INSERT INTO user(id, role, username, password, login, img)
+				VALUES(?, ?, ?, ?, ?, ?);
 		""";
-        return this.executeQuery(query, new Object[] { user.getId(), "USER", user.getUserName(),  user.getPassword(), user.getLogin() });
+        return this.executeQuery(query, new Object[] { user.getId(), "USER", user.getUserName(),  user.getPassword(), user.getLogin(), user.getImg()});
     }
     public boolean deleteUser(String id) {
         String query = "DELETE FROM User WHERE ID = ?";

@@ -8,9 +8,9 @@ const production = process.env.NODE_ENV === 'production';
 
 
 module.exports = {
-    entry: { myAppName: path.resolve(__dirname, "src/index.js") },
+    entry: ["regenerator-runtime/runtime.js", "./src/index.js"],
     output: {
-        path: path.resolve(__dirname, "../webapp/assets"),
+        path: path.resolve(__dirname, "compiled"),
         filename: production ? '[name].js' : '[name].js',
         publicPath: '/'
     },
@@ -35,12 +35,23 @@ module.exports = {
                     }
                 ]
             },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                use:[
+                    'file-loader'
+                ],
+            }
+
 
         ],
     },
     resolve: {
-        extensions: ["*", ".js", ".jsx", ".css"],
+        alias: {
+            assets: path.resolve(__dirname, "./assets"),
+        },
+        extensions: ['', '.js', '.jsx']
     },
+
     plugins: [
         new CleanWebpackPlugin(),
         new webpack.HotModuleReplacementPlugin(),
@@ -56,7 +67,6 @@ module.exports = {
         port: 3001,
         hot: true,
         historyApiFallback: true,
-
     },
     mode: production ? 'production' : 'development'
 };

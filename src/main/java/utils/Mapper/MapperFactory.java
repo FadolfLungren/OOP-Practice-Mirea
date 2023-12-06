@@ -6,6 +6,7 @@ public abstract class MapperFactory {
         return switch (model) {
             case ("User") -> new UserMapper();
             case ("Product") -> new ProductMapper();
+            case ("Bucket") -> new BucketMapper();
             default -> null;
         };
     }
