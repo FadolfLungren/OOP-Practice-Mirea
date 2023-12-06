@@ -1,5 +1,7 @@
 package Models.Entities;
 
+import com.google.gson.annotations.Expose;
+
 public class Product {
     private int id;
     private String title;
@@ -7,6 +9,16 @@ public class Product {
     private String description;
     private String category;
     private String imgUrl;
+
+    @Expose(serialize = false, deserialize = false)
+    private String date;
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
 
     public int getId() {
@@ -55,6 +67,8 @@ public class Product {
         this.imgUrl = ImgUrl;
     }
 
+
+
     @Override
     public String toString() {
         return "{" +
@@ -64,6 +78,7 @@ public class Product {
                 "\"description\":" + "\"" + description  + "\"" + "," +
                 "\"category\":" + "\"" + category  + "\"" + "," +
                 "\"Img\":" + "\"" + imgUrl  + "\"" +
+                "\"date\":" + "\"" + date + "\"" +
                 "}";
     }
 }

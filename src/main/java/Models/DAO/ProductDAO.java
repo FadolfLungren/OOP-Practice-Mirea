@@ -27,10 +27,10 @@ public class ProductDAO extends BaseDAO<Product>{
 
     public boolean addProduct(Product product) {
         String query = """
-				INSERT INTO product(id, title, cost, description, category, imgUrl)
-				VALUES(?, ?, ?, ?, ?, ?);
+				INSERT INTO product(id, title, cost, description, category, imgUrl, date)
+				VALUES(?, ?, ?, ?, ?, ?, ?);
 		""";
-        return this.executeQuery(query, new Object[] { product.getId(), product.getTitle(),  product.getCost(), product.getDescription(), product.getCategory(), product.getUrl() });
+        return this.executeQuery(query, new Object[] { product.getId(), product.getTitle(),  product.getCost(), product.getDescription(), product.getCategory(), product.getUrl(), product.getDate()});
     }
     public boolean deleteProduct(String id) {
         String query = "DELETE FROM Product WHERE ID = ?";
@@ -38,9 +38,9 @@ public class ProductDAO extends BaseDAO<Product>{
     }
     public boolean updateProduct(Product product) {
         String query = """	
-				UPDATE PRODUCT SET ID = ?, TITLE = ?, COST = ?, DESCRIPTION = ?, CATEGORY = ?, IMGURL = ?
+				UPDATE PRODUCT SET ID = ?, TITLE = ?, COST = ?, DESCRIPTION = ?, CATEGORY = ?, IMGURL = ?, DATE = ?
 				WHERE ID = ?
 		""";
-        return this.executeQuery(query, new Object[]{product.getId(), product.getTitle(),  product.getCost(), product.getDescription(), product.getCategory(), product.getUrl(), product.getId() });
+        return this.executeQuery(query, new Object[]{product.getId(), product.getTitle(),  product.getCost(), product.getDescription(), product.getCategory(), product.getUrl(), product.getId(), product.getDate()});
     }
 }
