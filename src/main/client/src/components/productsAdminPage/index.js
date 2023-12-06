@@ -57,7 +57,6 @@ function ProductTable() {
       withCredentials: true
     }).then((response)=>{
       if (response.status === 200){
-        console.log(response.data)
         setProducts(response.data)
       }
 
@@ -87,7 +86,6 @@ function ProductTable() {
           withCredentials: true
         }).then((response)=>{
           if (response.status === 200){
-            console.log(response.data)
             setProducts(response.data)
           }
 
@@ -98,15 +96,14 @@ function ProductTable() {
   }
   function handleSubmit(e){
     e.preventDefault();
-
     axios.put(`http://localhost:8080/products/${editedItem.id}`,{
       id:editedItem.id,
       title: e.target[0].value,
       cost: e.target[1].value,
       description: e.target[2].value,
-      category: e.target[3].value,
-      imgUrl: editedItem.Img
-
+      category: editedItem.category,
+      imgUrl: editedItem.Img,
+      date: editedItem.date,
 
     },{
       validateStatus: function (status) {
@@ -121,7 +118,7 @@ function ProductTable() {
           title: e.target[0].value,
           cost: e.target[1].value,
           description: e.target[2].value,
-          category: e.target[3].value,
+          category: editedItem.category,
           Img: editedItem.Img
         })
         axios.get('http://localhost:8080/products',{
@@ -131,7 +128,6 @@ function ProductTable() {
           withCredentials: true
         }).then((response)=>{
           if (response.status === 200){
-            console.log(response.data)
             setProducts(response.data)
           }
 

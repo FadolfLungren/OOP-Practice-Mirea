@@ -38,6 +38,18 @@ function ProductsPage() {
 
 
     useEffect(()=>{
+        axios.get('http://localhost:8080/users/validateSession',{
+            validateStatus: function (status) {
+                return status < 500;
+            },
+            withCredentials: true
+        }).then((response)=>{
+            if (response.status === 200){
+                setUser(response.data)
+                setIsAuth(true)
+                console.log(response.data)
+            }
+        })
 
         axios.get('http://localhost:8080/products',{
             validateStatus: function (status) {
@@ -50,11 +62,35 @@ function ProductsPage() {
                 setProducts(response.data)
             }
 
+        }).catch((e)=>{
+            console.log("error", e.message)
         })
 
 
     }, [])
 
+
+    function addBucket(productId){
+        console.log(productId)
+        axios.post('http://localhost:8080/bucket',{
+                "ownerId":user.id,
+                "itemId":productId
+            },
+            {
+            validateStatus: function (status) {
+                return status < 500;
+            },
+            withCredentials: true
+        }).then((response)=>{
+            if (response.status === 200){
+                console.log(response.data)
+                setProducts(response.data)
+            }
+
+        }).catch((e)=>{
+            console.log("error", e.message)
+        })
+    }
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -91,7 +127,11 @@ function ProductsPage() {
                                 </CardContent>
                                 <CardActions>
                                     <Button size="small">Подробнее</Button>
-                                    <Button size="small">В ведро</Button>
+                                    {isAuth && <Button size="small" onClick={()=>{
+                                        console.log(product)
+                                        addBucket(product["id"])
+                                    }
+                                    }>В ведро</Button>}
                                 </CardActions>
                             </Card>
                         </Grid>
@@ -116,7 +156,7 @@ function ProductsPage() {
                     color="text.secondary"
                     component="p"
                 >
-                    Something here to give the footer a purpose!
+                    JAVA
                 </Typography>
             </Box>
         </ThemeProvider>

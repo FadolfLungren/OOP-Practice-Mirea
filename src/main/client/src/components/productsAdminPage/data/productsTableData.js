@@ -53,7 +53,7 @@ export default function data(editFunction, products) {
       { Header: "Имя", accessor: "author", width: "45%", align: "left" },
       { Header: "Цена", accessor: "role", align: "left" },
       { Header: "Статус", accessor: "status", align: "center" },
-      { Header: "Последняя активность", accessor: "lastSeen", align: "center" },
+      { Header: "Дата создания", accessor: "lastSeen", align: "center" },
       { Header: "", accessor: "action", align: "center" },
     ],
 
@@ -69,7 +69,7 @@ export default function data(editFunction, products) {
             ),
             lastSeen: (
                 <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-                    23/04/18
+                    {product.date}
                 </MDTypography>
             ),
             action: (

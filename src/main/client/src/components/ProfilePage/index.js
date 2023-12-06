@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Grid from "@mui/material/Grid";
 import CssBaseline from "@mui/material/CssBaseline";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
@@ -21,6 +21,9 @@ const bucketItems = [1,2,3,4,5]
 const ProfilePage = () => {
     const nav = useNavigate()
 
+    const [bucket, setBucket] = useState([])
+    const [user, setUser] = useState({})
+
     useEffect(()=>{
         axios.get('http://localhost:8080/users/validateSession',{
             validateStatus: function (status) {
@@ -31,7 +34,23 @@ const ProfilePage = () => {
             if (response.status === 400){
                 nav("/login")
             }
+            if (response.status === 200){
+                setUser(response.data)
+                console.log(response.data)
+                axios.get(`http://localhost:8080/bucket/${response.data.id}`,{
+                    validateStatus: function (status) {
+                        return status < 500;
+                    },
+                    withCredentials: true
+                }).then((response)=>{
+                    if (response.status === 200){
+                        setBucket(response.data)
+                        console.log(response.data)
+                    }
+                })
+            }
         })
+
     }, [])
 
     function logout(){
@@ -72,50 +91,51 @@ const ProfilePage = () => {
                                     sx={{ height: 140
 
                                     }}
-                                    image="https://source.unsplash.com/random?wallpapers"
+                                    image={user.img}
                                     title="green iguana"
                                 />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="div">
-                                        Lizard
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                                        species, ranging across all continents except Antarctica
+                                        {user.userName}
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button size="small" onClick={()=>logout()}>Выйти из аккаунта</Button>
+                                    <Button size="small" onClick={()=> {
+                                        console.log("out")
+                                        logout()
+                                    }}>Выйти из аккаунта</Button>
                                 </CardActions>
 
                             </Card>
                         </Grid>
                         <Grid item xs={8} sx={{mt:8}}>
                             <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                                {bucketItems.map((card)=>
+                                {bucket.map((product)=>
                                     <Grid item xs={12} >
 
                                         <Card variant="outlined" sx={{
                                             display:"flex",
-                                            p:2
+                                            p:2,
+                                            justifyContent:"space-between"
                                         }}>
                                             <CardMedia
                                                 sx={{ height: 140,
-                                                    width:"35%",
+                                                    width:140,
                                                 }}
-                                                image="https://source.unsplash.com/random?wallpapers"
+                                                image={product.Img}
                                                 title="green iguana"
                                             />
                                             <CardContent>
                                                 <Typography gutterBottom variant="h5" component="div">
-                                                    Lizard
+                                                    {product.title}
                                                 </Typography>
                                                 <Typography variant="body2" color="text.secondary">
-                                                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                                                    species, ranging across all continents except Antarctica
+                                                    {product.description.substr(0,100) + "..."}
                                                 </Typography>
                                             </CardContent>
-                                            <CardActions>
+                                            <CardActions sx={{
+                                                justifySelf:"flex-end"
+                                            }}>
                                                 <Button size="small">Убрать</Button>
                                             </CardActions>
 

@@ -116,11 +116,11 @@ function UsersTable() {
         setIsEditingDescr(false)
         setEditedItem({
           id:editedItem.id,
-          title: e.target[0].value,
-          cost: e.target[1].value,
-          description: e.target[2].value,
-          category: e.target[3].value,
-          Img: editedItem.Img
+          userName: e.target[0].value,
+          login: e.target[1].value,
+          password: e.target[2].value,
+          role: e.target[3].value,
+          img:editedItem.img
         })
         axios.get('http://localhost:8080/users',{
           validateStatus: function (status) {
@@ -246,7 +246,7 @@ function UsersTable() {
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
-                  Продукты
+                  Пользователи
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>

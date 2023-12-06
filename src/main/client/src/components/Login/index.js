@@ -18,9 +18,9 @@ import {redirect} from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
 const SKOOFS = [
-    "https://sun1-83.userapi.com/impg/LjJL75jptnt6PAU0mMBe-xYLkjkInXq5b3f8-w/ni2kr30ZIM0.jpg?size=707x800&quality=95&sign=d4f3955c64c6f738471d6aac517bccd5&c_uniq_tag=rIoSQYnfWYlmcRyZ-0UYSYibL_Xou2Jqw9nZNGyeHh4&type=album",
-    "https://sun9-62.userapi.com/impg/pp6bqnxc2Nt_A_irf4GGHvjDzv5J_04amwohWQ/Pewi36qT3X0.jpg?size=576x719&quality=95&sign=4c50977f843f1c681e6c738462da3e2e&c_uniq_tag=2nkJgWp9-Bb-QG5Mknkzzd5MAlHiRENFdVaGM0hsBY0&type=album",
-    "https://sun9-27.userapi.com/impg/ha6KgVatt4iBvzRabu21haIpcAutW6grCKizTQ/ZZHHZBNMp4k.jpg?size=805x595&quality=95&sign=16b35c11af209896c5e7118e6ef007a4&c_uniq_tag=eDGlSg3WMcP4ENjyy4pyoSHWCJO7G_3E2AxbYvp_A50&type=album",
+    "https://vuzopedia.ru/storage/app/uploads/public/607/5ae/336/6075ae3362b68736821311.jpg",
+    "https://www.mirea.ru/upload/medialibrary/e01/RTU_7194.jpg",
+    "https://www.mirea.ru/upload/resize_cache/iblock/d7e/cnv92n3dscpz35r23wzctzf4yyy8sj9r/1500_1000_1/DJI_0457.jpg",
 ]
 
 function Copyright(props) {
@@ -64,6 +64,8 @@ export default function SignInSide() {
                 navigate("/products")
             }
 
+        }).catch((e)=>{
+            e.message
         })
 
     };

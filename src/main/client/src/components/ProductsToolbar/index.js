@@ -20,7 +20,7 @@ const pages = [
         href: "/"
     },
     {
-        text: 'профиль?',
+        text: 'профиль',
         href: "/#/profile"
     }
     ];
@@ -60,6 +60,8 @@ const ProductsToolbar = () => {
             if (response.status === 400){
                 setIsAuth(false)
             }
+        }).catch((e)=>{
+            console.log(e.message)
         })
     }, [])
 
@@ -189,12 +191,6 @@ const ProductsToolbar = () => {
                         </MenuItem>}
 
 
-                        {isAuth && <MenuItem key={2} onClick={handleCloseUserMenu}>
-                            <Typography textAlign="center"component="a" href="/#/login" sx={{
-                                color: 'inherit',
-                                textDecoration: 'none',
-                            }}>Выйти</Typography>
-                        </MenuItem>}
 
                         {!isAuth && <MenuItem key={3} onClick={handleCloseUserMenu}>
                             <Typography textAlign="center" component="a" href="/#/login" sx={{

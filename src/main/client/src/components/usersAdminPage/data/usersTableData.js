@@ -56,14 +56,13 @@ export default function data(editFunction, users) {
       { Header: "Имя", accessor: "author", width: "45%", align: "left" },
       { Header: "Пароль", accessor: "role", align: "left" },
       { Header: "Роль", accessor: "status", align: "center" },
-      { Header: "Последняя активность", accessor: "lastSeen", align: "center" },
       { Header: "", accessor: "action", align: "center" },
     ],
 
     rows: users.map((user)=>{
         console.log(user)
         return {
-            author: <Author image={user.Img} name={user.userName} email={user.login}/>,
+            author: <Author image={user.img} name={user.userName} email={user.login}/>,
             role: <Job title={user.password} description="" />,
             status: (
                 <MDBox ml={-1}>
